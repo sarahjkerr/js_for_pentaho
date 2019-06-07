@@ -1,7 +1,7 @@
 //STEP ONE: PRODUCE UNIQUE ARRAYS
 // Pentaho reads in the field values as a string. Turn the string into an array. Pentaho can't call a filter method on a blank array,
 // so if a row is null, this puts in a placeholder we delete later on.
-``` function makeArray(x) {
+function makeArray(x) {
 	if (x !== null) {
 		var nowArray = x.split(",");
 		return nowArray
@@ -10,16 +10,16 @@
 		return placeHolder
 	}
 }
-```
+
 
 
 // Create a var that stores the array so that it can be easily called later.
-```var isNowArrayActivityIDs = makeArray(All_Program_IDs_Activity)
+var isNowArrayActivityIDs = makeArray(All_Program_IDs_Activity)
 var isNowArrayPartIDs = makeArray(All_Program_IDs_Partner)```
 
-```
+
 // Iterate over the array, identify duplicate values, and remove them.
-```
+
 
 
 function uniq(a) {
@@ -33,17 +33,17 @@ function uniq(a) {
             return objs.indexOf(item) >= 0 ? false : objs.push(item);
     });
 }
-```
+
 // Apply the duplicate finder to the array variable created from PHPC input.
 
-```var dedupedActivityIDs = uniq(isNowArrayActivityIDs)
+var dedupedActivityIDs = uniq(isNowArrayActivityIDs)
 var dedupedPartIDs = uniq(isNowArrayPartIDs)```
 
 
-```
+
 //STEP TWO: COMPARE THE ARRAYS V2
 //Function that looks at program IDs for activities and pops the ones that don't align with partner PPA program IDs
-```
+
 function difference(a1, a2) {
   var result = [];
   for (var i = 0; i < a1.length; i++) {
@@ -54,7 +54,7 @@ function difference(a1, a2) {
   return result;
 }
 
-```
+
 //Var that returns string of mismatched IDs
-```
+
 var mismatchedProgramsActivities = difference(dedupedActivityIDs,dedupedPartIDs)
